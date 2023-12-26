@@ -31,7 +31,10 @@ const ticketSchema = new Schema(
     },
     photos: [
       {
-        photo: {
+        imageUrl: {
+          type: String,
+        },
+        publicId: {
           type: String,
         },
       },
