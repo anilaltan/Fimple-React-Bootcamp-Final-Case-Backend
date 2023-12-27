@@ -7,7 +7,20 @@ const {
 
 const createTicket = async (req, res) => {
   try {
-    const ticket = new Ticket(req.body);
+    const imageData = await uploadToCloudinary(req.file.path, "ticket-images");
+
+    const ticketData = {
+      // other ticket properties from req.body
+      name: req.body.name,
+      surname: req.body.name,
+      age: req.body.age,
+      TC: req.body.TC,
+      basvuruNedeni: req.body.basvuruNedeni,
+      address: req.body.address,
+      photos: [{ imageUrl: imageData.url, publicId: imageData.public_id }],
+    };
+
+    const ticket = new Ticket(ticketData);
     await ticket.save();
     res.status(201).send(ticket);
   } catch (error) {

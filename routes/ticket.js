@@ -14,6 +14,10 @@ router.post(
   ticketController.uploadImage
 );
 
-router.post("/basvuru-olustur", ticketController.createTicket);
+router.post(
+  "/basvuru-olustur",
+  upload.single("ticketImage"),
+  ticketController.createTicket
+);
 
 module.exports = router;
