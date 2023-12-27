@@ -8,6 +8,7 @@ router.get("/basvuru", auth, ticketController.getTickets);
 
 router.put("/basvuru/:id", ticketController.updateTicket);
 router.get("/basvuru/:takipNo", ticketController.getTicket);
+
 router.post(
   "/basvuru/:id",
   upload.single("ticketImage"),
@@ -16,7 +17,7 @@ router.post(
 
 router.post(
   "/basvuru-olustur",
-  upload.single("ticketImage"),
+  upload.array("ticketImages", 2),
   ticketController.createTicket
 );
 

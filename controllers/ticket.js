@@ -7,7 +7,15 @@ const {
 
 const createTicket = async (req, res) => {
   try {
-    const imageData = await uploadToCloudinary(req.file.path, "ticket-images");
+    const urls = [];
+    const files = req.files;
+    // console.log(files);
+    for (const file of files) {
+      const { path } = file;
+      console.log(path);
+      const imageData = await uploadToCloudinary(path, "ticket-images");
+      urls.push(imageData);
+    }
 
     const ticketData = {
       // other ticket properties from req.body
@@ -17,7 +25,11 @@ const createTicket = async (req, res) => {
       TC: req.body.TC,
       basvuruNedeni: req.body.basvuruNedeni,
       address: req.body.address,
-      photos: [{ imageUrl: imageData.url, publicId: imageData.public_id }],
+      // photos: [{ imageUrl: imageData.url, publicId: imageData.public_id }],
+      photos: urls.map((imageData) => ({
+        imageUrl: imageData.url,
+        publicId: imageData.public_id,
+      })),
     };
 
     const ticket = new Ticket(ticketData);
