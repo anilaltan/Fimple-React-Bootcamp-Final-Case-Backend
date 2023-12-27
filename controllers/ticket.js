@@ -20,7 +20,7 @@ const createTicket = async (req, res) => {
     const ticketData = {
       // other ticket properties from req.body
       name: req.body.name,
-      surname: req.body.name,
+      surname: req.body.surname,
       age: req.body.age,
       TC: req.body.TC,
       basvuruNedeni: req.body.basvuruNedeni,
