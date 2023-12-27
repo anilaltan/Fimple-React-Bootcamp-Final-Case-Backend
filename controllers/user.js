@@ -2,6 +2,12 @@ const User = require("../models/user");
 
 const createUser = async (req, res) => {
   try {
+    const username = await User.findOne({ username: req.body.username });
+    if (username) {
+      return res
+        .status(400)
+        .send({ error: "A user has already registered with this username" });
+    }
     const user = new User(req.body);
     await user.save();
     const token = await user.generateAuthToken();

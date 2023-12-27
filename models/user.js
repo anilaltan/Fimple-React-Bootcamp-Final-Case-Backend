@@ -6,6 +6,7 @@ const userSchema = mongoose.Schema({
   username: {
     type: String,
     required: true,
+    unique: true,
     trim: true,
   },
   password: {
@@ -42,7 +43,7 @@ userSchema.methods.generateAuthToken = async function () {
 };
 
 userSchema.statics.findByCredentials = async (username, password) => {
-  // Search for a user by email and password
+  // Search for a user by username and password
   const user = await User.findOne({ username });
   if (!user) {
     throw new Error({ error: "Invalid login credentials" });
