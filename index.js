@@ -7,7 +7,18 @@ require("./db/db");
 
 const app = express();
 
-app.use(cors());
+var whitelist = ["http://localhost:5173", "http://127.0.0.1:5173"];
+var corsOptions = {
+  origin: function (origin, callback) {
+    if (whitelist.indexOf(origin) !== -1) {
+      callback(null, true);
+    } else {
+      callback(new Error("Not allowed by CORS"));
+    }
+  },
+};
+
+app.use(cors(corsOptions)); // define this middeware before the all routes as you defined.
 app.use(express.json());
 app.use(userRoutes);
 app.use(ticketRoutes);
