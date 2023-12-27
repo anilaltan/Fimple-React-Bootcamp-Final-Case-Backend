@@ -12,7 +12,7 @@ dist
 dist-ssr
 *.local
 
-# dotenv environment variable file
+# dotenv environment variable files
 .env
 .env.development.local
 .env.test.local
